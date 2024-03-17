@@ -21,6 +21,8 @@ public class SecurityBeansInjector {
 //    @Autowired
 //    public AuthenticationConfiguration authenticationConfiguration;
 
+    //private UserRepository userRepository
+
     @Autowired
     private UserRepository userRepository;
 
@@ -33,10 +35,10 @@ public class SecurityBeansInjector {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(null);
-        provider.setPasswordEncoder();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
 
-        return
+        return provider;
 
     }
 
@@ -47,7 +49,7 @@ public class SecurityBeansInjector {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository)
+    public UserDetailsService userDetailsService()
     {
             return username -> {
 
